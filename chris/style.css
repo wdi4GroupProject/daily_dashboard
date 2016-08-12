@@ -1,0 +1,63 @@
+/* GENERAL STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+$bg-main-color: #fdfdfd;
+
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+html {
+    font-size: 1em;
+}
+
+body {
+  background: $bg-main-color;
+  line-height: 1.625;
+}
+
+h3, p, div {
+  text-align: center;
+}
+
+h3 {
+  text-transform: capitalize;
+  span {
+    text-transform: none;
+  }
+}
+
+button {
+  display: block;
+  margin: 15px auto;
+}
+
+.center_image {
+  border-radius: 300%;
+  width: 30vw;
+  height: 30vw;
+}
+
+#yodaSpeak {
+  max-width: 70%;
+  margin: 15px auto;
+  padding: 10px;
+}
+
+/* Styling the svg loader
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.loader {
+  z-index: 10;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.loader svg path,
+.loader svg rect {
+  fill: #136fd2;
+}
