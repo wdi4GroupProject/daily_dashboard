@@ -42,28 +42,106 @@ footer{
   text-align: center;
 }
 
-
-
-
-
-/* Styling the svg loader
+/* Styling the search
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.loader {
-  z-index: 10;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  display: none;
+.awesome-line {
+  text-align: center;
+  margin: 1em auto;
+  height: 1px;
+  opacity: 0;
+  background: -webkit-linear-gradient(left, rgba(0, 45, 98, 0.7) 15%, rgb(80, 203, 242) 50%, rgba(0, 45, 98, 0.7) 85%);
+  /* Chrome10+,Safari5.1+ */
 }
 
-.loader svg path,
-.loader svg rect {
-  fill: #136fd2;
+.search-block{
+  text-align: center;
+}
+form {
+  display: inline-block;
+  margin: 0 auto;
 }
 
-/* Styling the weather icons
+.search {
+  float: left;
+  height: 2em;
+  line-height: 2em;
+  /*background: #606060;*/
+  box-shadow: 2px 2px 0 #909090;
+  /*text-shadow: 0 -1px 0 #161616;*/
+}
+
+form input {
+  -webkit-transition: all 0.30s ease-in-out;
+  border: 1px solid #9b9b9b;
+  border-radius: 5px 0 0 5px;
+  padding: 0 10px;
+  width: 200px;
+}
+
+form input:hover, form input:focus {
+  border: 1px solid rgb(80, 203, 242);
+  box-shadow: none;
+}
+
+form button {
+  -webkit-transition: all 0.30s ease-in-out;
+  border: 1px solid #9b9b9b;
+  border-radius: 0 5px 5px 0;
+  padding: 0;
+  position: relative;
+  left: 0;
+  width: 80px;
+  background-color: #EEE;
+  color: #AAA;
+}
+
+button:hover {
+  color: #FFF;
+  background: -webkit-linear-gradient( top,#337ab7 0,#265a88 100%);
+  border: 1px solid rgb(80, 203, 242);
+  box-shadow: none;
+}
+
+.results {
+  width: 90%;
+  margin: 1em auto;
+  list-style: none;
+  float: left;
+}
+
+.results li {
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.results li:hover {
+  margin-top: -5px;
+  border: 1px solid rgb(200, 200, 200);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+  background: rgba(200, 200, 200, 0.1);
+  transition: 0.3s;
+}
+
+.results .title {
+  font-weight: bold;
+  color: rgb(80, 203, 242);
+}
+.results .desc {
+  font-weight: normal;
+}
+.results a:link,
+.results a:visited,
+.results a:hover,
+.results a:active {
+  text-decoration: none;
+  color: #888;
+}
+
+
+
+
+/* Styling the weather panel
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 .side-panel {
@@ -87,14 +165,16 @@ footer{
   font-size: 1em;
 }
 
-.side-panel .temp{
-  cursor:pointer;
-  color:#006dcc;
-}
-.side-panel .temp:hover{
-  color:#005096;
+.forecasts{
+  text-align: center;
 }
 
+.forecasts p{
+  font-size: 0.8em;
+}
+
+/* Styling the weather icons
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 .icon {
   position: relative;
   display: inline-block;
@@ -109,14 +189,6 @@ footer{
   width: 12em;
   height: 10em;
   font-size: 0.3em; /* control icon size here */
-}
-
-.forecasts{
-  text-align: center;
-}
-
-.forecasts p{
-  font-size: 0.8em;
 }
 
 .cloud {
@@ -386,4 +458,22 @@ footer{
     background: #fff;
     opacity: 0.2;
   }
+}
+
+
+/* Styling the svg loader
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.loader {
+  z-index: 10;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.loader svg path,
+.loader svg rect {
+  fill: #136fd2;
 }

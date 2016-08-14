@@ -4,10 +4,6 @@ $(function(){
   var $author = $('#author');
   var $loader = $('.loader');
   var $T_weather_icon = $('#T_weather_icon');
-  // var latitude;
-  // var longitude;
-
-
 
   $submitBtn.on('click', function(e) {
   // prevent the default behavior of the link
@@ -36,6 +32,7 @@ $(function(){
   function successFunction(data){
     $quote.html('<strong>&ldquo;</strong><em> '+ data.quote +' </em><strong>&rdquo;</strong>');
     $author.html('<small>- ' + data.author + '</small>');
+    $('input#input-search').val(data.author);
   }
   function failFunction(request, textStatus, errorThrown){
     $quote.text(textStatus + ' occurred during your request: '+ errorThrown );
@@ -46,10 +43,6 @@ $(function(){
   $.ajax({
     // where the data live
     url: "http://morning-dusk-83442.herokuapp.com/users",
-    headers: {
-    // "Content-Type": "application/x-www-form-urlencoded",
-    // "Accept": "application/json"
-    },
     type: "GET",
 
     // what is their type
@@ -71,6 +64,7 @@ $(function(){
     $('#members').text(member_name.join(', '));
   }
 
+  // WEATHER SIDE PANEL ----------------------------------------------------------------------------------------
   // get lat & long from address
   $.get('https://ipapi.co/json/', function( data ){
     weather_grab(data.latitude, data.longitude);
@@ -83,7 +77,6 @@ $(function(){
     var URL_weather = 'http://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
 
     $.get(URL_weather, function( data ){
-      alert(data);
       $('#location').text(data.name+", "+data.sys.country);
 
       $('#T_weather').text(data.weather[0].description.toTitleCase());
@@ -103,29 +96,86 @@ $(function(){
      'http://api.openweathermap.org/data/2.5/forecast?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
 
     $.get(URL_forecast, function( data ){
-      alert(URL_forecast);
-      alert(data.list[0].dt_txt);
+
       var forecast24 = data.list[7];
       var forecast48 = data.list[15];
       var forecast72 = data.list[23];
 
+      // set forecast temp
       $('#T24_temp').html(Math.round(forecast24.main.temp)+"&#176;C");
       $('#T48_temp').html(Math.round(forecast48.main.temp)+"&#176;C");
       $('#T72_temp').html(Math.round(forecast72.main.temp)+"&#176;C");
 
+      // set forecast icon
       $('#T24_weather_icon').html(icon_return(weather_code_trans(forecast24.weather[0].id)));
       $('#T48_weather_icon').html(icon_return(weather_code_trans(forecast48.weather[0].id)));
-      $('#T72_weather_icon').html(icon_return(weather_code_trans(forecast72.weather[0].id))); 
-
-      // identify icon type based on weather code
-      // insert weather icon
-      //$('#T_weather_icon').html(icon_return(weather_code_trans(data.weather[0].id)));
+      $('#T72_weather_icon').html(icon_return(weather_code_trans(forecast72.weather[0].id)));
     });
   };
 
-  // 7,15,23
-  // {"dt":1471111200,"main":{"temp":28.6,"temp_min":27.91,"temp_max":28.6,"pressure":1022.2,"sea_level":1022.84,"grnd_level":1022.2,"humidity":99,"temp_kf":0.68},"weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03n"}],"clouds":{"all":32},"wind":{"speed":3.46,"deg":158.011},"rain":{},"sys":{"pod":"n"},"dt_txt":"2016-08-13 18:00:00"},
-// {"city":{"id":1880252,"name":"Singapore","coord":{"lon":103.850067,"lat":1.28967},"country":"SG","population":0,"sys":{"population":0}},"cod":"200","message":0.0319,"cnt":40,"list":[{"dt":1471111200,"main":{"temp":28.6,"temp_min":27.91,"temp_max":28.6,"pressure":1022.2,"sea_level":1022.84,"grnd_level":1022.2,"humidity":99,"temp_kf":0.68},"weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03n"}],"clouds":{"all":32},"wind":{"speed":3.46,"deg":158.011},"rain":{},"sys":{"pod":"n"},"dt_txt":"2016-08-13 18:00:00"},
+  // WIKIPEDIA SEARCH function ----------------------------------------------------------------------------------------
+  // can't get autocomplete to work
+
+  /* clearing the results event if user press Backspace */
+  $('input#input-search').keyup(function(e) {
+    if (e.which === 8) {
+      displayAfterSearchLine(0, 0);
+      $('.results').empty();
+    }
+  });
+
+  // fade in (val=1) or out (val=0) the after-search-line with chosen speed
+  var displayAfterSearchLine = function(speed, val) {
+    $('.awesome-line').css({
+      transition: 'opacity ' + speed + 's ease-in-out',
+      'opacity': val
+    });
+  };
+
+  /* click button event */
+  $('button#button-search').click(function(event) {
+    event.preventDefault();
+    // clear previous results
+    $('.results').empty();
+    // run the search function with the text in the input field
+    runWiki($('input#input-search').val());
+  });
+
+  /* search value in wikipedia and parse it to a list */
+  var runWiki = function(val) {
+    displayAfterSearchLine(0.3, 1);
+
+    var URL_wiki = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + val + '&callback=?';
+
+    $.getJSON(URL_wiki, function(data) {
+
+    // go over all values
+      for (var i = 0; i < data[1].length; i++) {
+        var title = data[1][i];
+        // if title ends with - omit it
+        if (title.length - 1 === '-') {
+          title = title.substring(0, str.length - 1);
+        }
+
+        // if there is no description - add 'No Description'
+        var desc;
+        if (data[2][i] !== '') {
+          desc = data[2][i];
+        } else {
+          desc = 'No Description';
+        }
+
+        // define page link
+        var link = data[3][i];
+        // declare th<li> html
+        var listLi = '<li><a href="' + link + '" target="_blank"><span class="title">' + title + '</span><span class="desc"> - ' + desc + '</span></a></li>';
+
+        // append to <ul>
+        $('.results').append(listLi);
+      } // close 'for' loop
+    }); // close JSON call
+  }; // close runWiki function
+
 
 
 
@@ -187,5 +237,3 @@ $(function(){
   var rainy_html = '<div class="icon rainy"><div class="cloud"></div><div class="rain"></div></div>';
 
 });
-
-//{"_id":1880251,"name":"Republic of Singapore","country":"SG","coord":{"lon":103.800003,"lat":1.36667}}
