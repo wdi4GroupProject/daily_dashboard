@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
 
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -13,9 +14,29 @@
 
 <body>
   <div class="container">
-    <div class="col-md-8 jumbotron">
+    <div class="row">
+    <div class=" quote-of-day col-md-8">
       <p id="result"></p>
     </div>
+    <div class="weather-of-day col-md-4">
+      <h2 id="country"></h2><span id="weather"></span><div id="icon"></div>
+      <strong>Temperature:</strong>
+      <p id="temp"></p>
+      <strong>Temperature Min:</strong>
+      <p id="temp_min"></p>
+      <strong>Temperature Max:</strong>
+      <p id="temp_max"></p>
+      <strong>Humidity:</strong>
+      <p id="humidity"></p>
+    </div>
+  </div>
+  <div class="row">
+    <input id="search" class="interact-area input-area" placeholder="Search for...">
+    <input type="button" id="do_search" class="interact-area btn btn-primary" value="Search" />
+      <div id="search_result" class="interact-area output-area"></div>
+    </div>
+
+  </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="script.js"></script>
