@@ -53,7 +53,7 @@ $(function(){
     //   'Access-Control-Max-Age': 1728000
     // },
     // what is their type
-    dataType: 'jsonp',
+    dataType: 'JSONP',
     // show the loader before making the request
     beforeSend: function (request) {
     },
