@@ -42,7 +42,8 @@ $(function(){
 
   $.ajax({
     // where the data live
-    url: "https://crossorigin.me/https://morning-dusk-83442.herokuapp.com/users",
+    url: "https://morning-dusk-83442.herokuapp.com/users",
+    //https://crossorigin.me/
     type: "GET",
     // header: {
     //   'Content-Type': 'application/json;charset=UTF-8',
@@ -52,7 +53,7 @@ $(function(){
     //   'Access-Control-Max-Age': 1728000
     // },
     // what is their type
-    dataType: 'json',
+    dataType: 'jsonp',
     // show the loader before making the request
     beforeSend: function (request) {
     },
