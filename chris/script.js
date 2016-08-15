@@ -66,8 +66,6 @@ $(function(){
     $('#members').text(request+ textStatus + ' occurred during your request: '+ errorThrown );
   }
   function teamDoneFn(data){
-    alert(data);
-    console.log(data);
     var member_name = [];
     data.forEach(function(unit){
       member_name.push(unit.name);
