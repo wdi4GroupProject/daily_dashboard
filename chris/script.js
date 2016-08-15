@@ -42,7 +42,7 @@ $(function(){
 
   $.ajax({
     // where the data live
-    url: "http://morning-dusk-83442.herokuapp.com/users",
+    url: "https://morning-dusk-83442.herokuapp.com/users",
     type: "GET",
 
     // what is their type
@@ -74,7 +74,7 @@ $(function(){
   // define weather based on lat & long
   var weather_grab = function(latitude, longitude){
     // define weather url
-    var URL_weather = 'http://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
+    var URL_weather = 'https://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
 
     $.get(URL_weather, function( data ){
       $('#location').text(data.name+", "+data.sys.country);
@@ -93,7 +93,7 @@ $(function(){
   var forecast_grab = function(latitude, longitude){
     // define forecast url
     var URL_forecast =
-     'http://api.openweathermap.org/data/2.5/forecast?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
+     'https://api.openweathermap.org/data/2.5/forecast?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
 
     $.get(URL_forecast, function( data ){
 
