@@ -44,7 +44,13 @@ $(function(){
     // where the data live
     url: "https://morning-dusk-83442.herokuapp.com/users",
     type: "GET",
-
+    header: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'DELETE, HEAD, GET, OPTIONS, POST, PUT',
+      'Access-Control-Allow-Headers': 'Content-Type, Content-Range, Content-Disposition, Content-Description',
+      'Access-Control-Max-Age': 1728000
+    },
     // what is their type
     dataType: 'json',
     // show the loader before making the request
