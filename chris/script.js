@@ -42,7 +42,7 @@ $(function(){
 
   $.ajax({
     // where the data live
-    url: "https://morning-dusk-83442.herokuapp.com/users",
+    url: "http://morning-dusk-83442.herokuapp.com/users",
     //https://crossorigin.me/
     type: "GET",
     // header: {
@@ -53,7 +53,7 @@ $(function(){
     //   'Access-Control-Max-Age': 1728000
     // },
     // what is their type
-    dataType: 'JSONP',
+    dataType: 'jsonp',
     // show the loader before making the request
     beforeSend: function (request) {
     },
@@ -64,6 +64,8 @@ $(function(){
     $('#members').text(request+ textStatus + ' occurred during your request: '+ errorThrown );
   }
   function teamDoneFn(data){
+    alert(data);
+    console.log(data);
     var member_name = [];
     data.forEach(function(unit){
       member_name.push(unit.name);
@@ -81,7 +83,7 @@ $(function(){
   // define weather based on lat & long
   var weather_grab = function(latitude, longitude){
     // define weather url
-    var URL_weather = 'https://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
+    var URL_weather = 'http://api.openweathermap.org/data/2.5/weather?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
 
     $.get(URL_weather, function( data ){
       $('#location').text(data.name+", "+data.sys.country);
@@ -100,7 +102,7 @@ $(function(){
   var forecast_grab = function(latitude, longitude){
     // define forecast url
     var URL_forecast =
-     'https://api.openweathermap.org/data/2.5/forecast?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
+     'http://api.openweathermap.org/data/2.5/forecast?lat='+latitude+'&lon='+longitude+'&units=metric&APPID=780850e6d3554ee2a6717fdd0baa203a';
 
     $.get(URL_forecast, function( data ){
 
